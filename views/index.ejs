@@ -4,7 +4,18 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="/frameworks/jquery-2.1.3.min.js"></script>
+    <script src="/frameworks/jquery-template/jquery-loadTemplate/jquery.loadTemplate-1.4.4.min.js"></script>
     <script src="https://api.trello.com/1/client.js?key=<%= conf.key %>"></script>
+
+    <!-- begining of templates -->
+    <script type="text/html" id="board-template">
+      <li>
+      <div class="board">
+        <div class="name"><strong><a data-href="url" target="_blank" data-content="name"></a></strong></div>
+      </div>
+      </li>
+    </script><!-- board-template -->
+    <!-- end of templates -->
   </head>
   <body>
     <div id="debug">
@@ -24,6 +35,12 @@
 
     <div id="logged-in">
       <p class="welcome"></p>
+      <div id="boards-container">
+        <h2>ボード一覧</h2>
+        <div class="boards">
+          <ul></ul>
+        </div>
+      </div>
       <button id="disconnect">disconnect from trello</button>
     </div>
 
