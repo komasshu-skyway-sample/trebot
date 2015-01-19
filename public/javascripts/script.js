@@ -24,7 +24,6 @@ var boardDB = {
 var onAuthorize = function(obj) {
   updateLoggedIn();
   Trello.members.get("me", { "boards": "all"}, function(member){
-    console.log(member);
     var mesg = [ "Welcome, ", member.fullName, " !!"].join("");
     $("#logged-in .welcome").text(mesg);
 
@@ -38,7 +37,7 @@ var onAuthorize = function(obj) {
 
 var showBoards = function(boards) {
   var $node = $("#boards-container .boards ul");
-  boards = boards.filter(function(b) { console.log(b); return b.name !== "Welcome Board" })
+  boards = boards.filter(function(b) { return b.name !== "Welcome Board" })
   boards.map(function(b) { b.url = "https://trello.com/b/" + b.id; })
   $node
     .loadTemplate($("#board-template"), boards)
@@ -69,7 +68,6 @@ var getLists = function(){
   var $self = $(this);
 
   Trello.boards.get(bid, {"cards": "all", "lists": "all", "members": "all"}, function(res) {
-    console.log(bid, res);
     var cards = res.cards
     , lists = res.lists
     , members = res.members;
@@ -91,7 +89,6 @@ var getLists = function(){
       card.mids = card.idMembers.join(",");
       objCards[lid].push(card);
     });
-    console.log(objCards);
 
     // cardを表示する
     for(var lid in objCards) if( objCards.hasOwnProperty(lid) ) {
@@ -137,7 +134,10 @@ Trello.authorize({
   interactive:false,
   success: onAuthorize
 });
-                          
+
+updateLoggedIn();
+ 
+                         
 $("#connect").click(function(){
    Trello.authorize({
      type: "popup",
