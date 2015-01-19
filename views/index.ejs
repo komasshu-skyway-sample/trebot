@@ -3,9 +3,31 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/frameworks/jquery-2.1.3.min.js"></script>
+    <script src="https://api.trello.com/1/client.js?key=<%= conf.key %>"></script>
   </head>
   <body>
+    <div id="debug">
+      <p>Debug info</p>
+      <ul>
+        <li>key: <%= conf.key %></li>
+        <li>secretkey: <%= conf.secretkey %></li>
+      </ul>
+    </div>
     <h1><%= title %></h1>
+
     <p>Welcome to <%= title %></p>
+
+    <div id="logged-out">
+      <button id="connect">connect to trello</button>
+    </div>
+
+    <div id="logged-in">
+      <p class="welcome"></p>
+      <button id="disconnect">disconnect from trello</button>
+    </div>
+
+    <!-- script -->
+    <script src="/javascripts/script.js"></script>
   </body>
 </html>
