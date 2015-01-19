@@ -3,6 +3,23 @@
  *
  */
 
+var boardDB = {
+  "key": "board-checked",
+  "update": function() {
+    var checked = {};
+    $(".board input[type=checkbox]").each(function(ev) {
+      var bid = $(this).data("bid");
+      checked[bid] = $(this)[0].checked;
+    });
+    localStorage.setItem(this.key, JSON.stringify(checked));
+  },
+  "get": function() {
+    var ret = localStorage.getItem(this.key);
+    return ret ? JSON.parse(ret) : {};
+  }
+}
+
+
 
 var onAuthorize = function(obj) {
   updateLoggedIn();
@@ -27,11 +44,18 @@ var showBoards = function(boards) {
     .loadTemplate($("#board-template"), boards)
     .find("input[type=checkbox]")
     .on("click", getLists);
+
+  var checked = boardDB.get();
+  $(".boards input[type=checkbox]").each(function(ev) {
+    var bid = $(this).data("bid");
+    if(checked[bid]) $(this).trigger("click");
+  });
 }
 
 var getLists = function(){
   var bid = $(this).data("bid");
   var checked = $(this)[0].checked;
+  boardDB.update();
 
   $(".board[data-bid=" + bid + "] .lists")[ checked ? "show" : "fadeOut"]();
   var isLoaded = $(this).data("loaded");
