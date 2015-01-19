@@ -56,7 +56,7 @@ var getLists = function(){
   var checked = $(this)[0].checked;
   boardDB.update();
 
-  $(".board[data-bid=" + bid + "] .lists")[ checked ? "show" : "fadeOut"]();
+  $(".board[data-bid=" + bid + "] .lists")[ checked ? "show" : "hide"]();
   var isLoaded = $(this).data("loaded");
 
   if(isLoaded) {
