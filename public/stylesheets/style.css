@@ -18,3 +18,7 @@ a {
 .members img {
   width: 16px;height:16px;
 }
+
+#debug {
+  display: none;
+}

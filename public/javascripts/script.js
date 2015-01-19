@@ -21,7 +21,8 @@ var onAuthorize = function(obj) {
 
 var showBoards = function(boards) {
   var $node = $("#boards-container .boards ul");
-  boards.map(function(b) { b.url = "https://trello.com/b/" + b.id; });
+  boards = boards.filter(function(b) { console.log(b); return b.name !== "Welcome Board" })
+  boards.map(function(b) { b.url = "https://trello.com/b/" + b.id; })
   $node
     .loadTemplate($("#board-template"), boards)
     .find("input[type=checkbox]")
@@ -30,6 +31,18 @@ var showBoards = function(boards) {
 
 var getLists = function(){
   var bid = $(this).data("bid");
+  var checked = $(this)[0].checked;
+
+  $(".board[data-bid=" + bid + "] .lists")[ checked ? "show" : "fadeOut"]();
+  var isLoaded = $(this).data("loaded");
+
+  if(isLoaded) {
+    return;
+  } else {
+    $(this).attr("data-loaded", true);
+  }
+
+  var $self = $(this);
 
   Trello.boards.get(bid, {"cards": "all", "lists": "all", "members": "all"}, function(res) {
     console.log(bid, res);
@@ -76,6 +89,7 @@ var getLists = function(){
       });
     });
   }, function(err) {
+    $self.attr("data-loaded", false);
     throw err;
   });
 }

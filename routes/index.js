@@ -9,5 +9,5 @@ var fs = require('fs');
 var conf = JSON.parse(fs.readFileSync("./conf/trello.conf"));
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Express' , "conf": conf});
+  res.render('index', { title: 'Trebot' , "conf": conf});
 };
