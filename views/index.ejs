@@ -10,12 +10,39 @@
     <!-- begining of templates -->
     <script type="text/html" id="board-template">
       <li>
-      <div class="board">
-        <div class="name"><strong><a data-href="url" target="_blank" data-content="name"></a></strong></div>
+      <div class="board" data-template-bind='[{"attribute": "data-bid", "value": "id"}]'>
+        <div class="name">
+          <label>
+            <input type="checkbox" data-template-bind='[{"attribute": "data-bid", "value": "id"}]'>
+            <span data-content="name"></span>
+          </label>
+          <a data-href="url" target="_blank"><img src="/images/ext-link.png"></a></div>
+        <div class="lists">
+          <ul></ul>
+        </div>
       </div>
       </li>
     </script><!-- board-template -->
+
+    <script type="text/html" id="list-template">
+      <li>
+      <div class="list" data-template-bind='[{"attribute": "data-lid", "value": "id"}]'>
+        <div class="name" data-content="name"></div>
+        <div class="cards"><ul></ul></div>
+      </div>
+      </li>
+    </script><!-- list-template -->
     <!-- end of templates -->
+
+    <script type="text/html" id="card-template">
+      <li>
+      <div class="card" data-template-bind='[{"attribute": "data-cid", "value": "id"}]'>
+        <span class="name" data-content="name"></span>
+        <span class="members" data-template-bind='[{"attribute": "data-mids", "value": "mids"}]'></span>
+        <a data-href="shortUrl" target="_blank"><img src="/images/ext-link.png"></a></div>
+      </div>
+      </li>
+    </script><!-- card-template -->
   </head>
   <body>
     <div id="debug">
